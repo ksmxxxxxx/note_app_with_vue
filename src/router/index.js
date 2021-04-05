@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 // import Home from '../views/Home.vue'
-import Note from '../components/Note.vue'
-import NoteDetail from '../components/NoteDetail.vue'
+import NoteList from '../views/NoteList.vue'
+import NoteDetail from '../views/NoteDetail.vue'
 
 const routes = [
   // {
@@ -20,8 +20,8 @@ const routes = [
   // },
   {
     path: '/',
-    name: 'Note',
-    component: Note,
+    name: 'NoteList',
+    component: NoteList,
     props: true
   },
   {

@@ -7,11 +7,6 @@
 
 <script>
 export default {
-  name: 'NoteDetail',
-  inject: ['items'],
-  props: ['title', 'body'],
-  created () {
-    console.log(this)
-  }
+  name: 'NoteDetail'
 }
 </script>

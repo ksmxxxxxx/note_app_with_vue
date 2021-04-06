@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <ListItem/>
+    <ListItem v-for="item in items" :key="item.id" :id="item.id" :title="item.title" :body="item.body"/>
   </ul>
 </template>
 
@@ -10,6 +10,7 @@ export default {
   components: {
     ListItem
   },
-  name: 'List'
+  name: 'List',
+  inject: ['items']
 }
 </script>

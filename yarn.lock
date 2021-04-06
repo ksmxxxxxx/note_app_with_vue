@@ -8295,14 +8295,6 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vue-cli-plugin-vue-next@~0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/vue-cli-plugin-vue-next/-/vue-cli-plugin-vue-next-0.1.4.tgz#8173186aedb65a7e9fe80889a9c44b023544dd9f"
-  integrity sha512-uSr/2c+enS7Ps5Qu54dOno+oTY69LXJCzksiqoSDE2bdxiqlkFjeayrMKV7GOeYNnmqEpExhZ2ZT0359la/wSA==
-  dependencies:
-    chalk "^4.1.0"
-    vue-loader "^16.0.0-alpha.3"
-
 vue-eslint-parser@^7.6.0:
   version "7.6.0"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-7.6.0.tgz#01ea1a2932f581ff244336565d712801f8f72561"
@@ -8331,7 +8323,7 @@ vue-hot-reload-api@^2.3.0:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-loader@^16.0.0-alpha.3, vue-loader@^16.1.2:
+vue-loader@^16.1.2:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-16.2.0.tgz#046a53308dd47e58efe20ddec1edec027ce3b46e"
   integrity sha512-TitGhqSQ61RJljMmhIGvfWzJ2zk9m1Qug049Ugml6QP3t0e95o0XJjk29roNEiPKJQBEi8Ord5hFuSuELzSp8Q==

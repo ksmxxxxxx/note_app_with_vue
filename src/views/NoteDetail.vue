@@ -1,14 +1,36 @@
 <template>
-  <div v-for="item in items" :key="item.id" :title="item.title">
-    <h1>{{  }}</h1>
-    <p>本文</p>
+  <Detail :title="this.fetchData().title" :body="this.fetchData().body"/>
+  <div>
+    <button>Edit</button>
+    <button>Delete</button>
   </div>
 </template>
 
 <script>
+import Detail from '@/components/Detail.vue'
 export default {
   /* eslint-disable no-console */
+  components: {
+    Detail
+  },
   name: 'NoteDetail',
-  inject: ['items']
+  inject: ['items'],
+  props: {
+    id: Number,
+    title: String,
+    body: String
+  },
+  mounted () {
+    console.log(this.fetchData())
+  },
+  methods: {
+    fetchData () {
+      const noteId = this.$props.id - 1
+      const note = {}
+      note.title = this.items[noteId].title
+      note.body = this.items[noteId].body
+      return note
+    }
+  }
 }
 </script>

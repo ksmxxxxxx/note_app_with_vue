@@ -2,7 +2,7 @@
   <Detail :title="this.fetchData().title" :body="this.fetchData().body"/>
   <div>
     <button>Edit</button>
-    <button>Delete</button>
+    <button @click="this.deleteNote()">Delete</button>
   </div>
 </template>
 
@@ -33,6 +33,15 @@ export default {
       note.title = this.notes[index].title
       note.body = this.notes[index].body
       return note
+    },
+    deleteNote () {
+      this.notes.splice(this.$props.id, 1)
+      this.saveNote()
+      this.$router.push({ path: '/' })
+    },
+    saveNote () {
+      const parsed = JSON.stringify(this.notes)
+      localStorage.setItem('notes', parsed)
     }
   },
   props: ['id'],

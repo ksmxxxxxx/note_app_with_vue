@@ -2,6 +2,9 @@
   <div class="note-list">
     <List/>
   </div>
+  <div>
+    <router-link to="/add">Add Note</router-link>
+  </div>
 </template>
 
 <script>

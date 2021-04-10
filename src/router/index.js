@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 // import Home from '../views/Home.vue'
 import NoteList from '../views/NoteList.vue'
 import NoteDetail from '../views/NoteDetail.vue'
+import NoteAdd from '../views/NoteAdd.vue'
 
 const routes = [
   // {
@@ -28,6 +29,14 @@ const routes = [
     path: '/detail/:id',
     name: 'NoteDetail',
     component: NoteDetail,
+    props: route => ({
+      id: Number(route.params.id)
+    })
+  },
+  {
+    path: '/add',
+    name: 'NoteAdd',
+    component: NoteAdd,
     props: route => ({
       id: Number(route.params.id)
     })

@@ -9,28 +9,36 @@
 <script>
 import Detail from '@/components/Detail.vue'
 export default {
-  /* eslint-disable no-console */
-  components: {
-    Detail
+  data () {
+    return {
+      notes: []
+    }
   },
-  name: 'NoteDetail',
-  inject: ['items'],
-  props: {
-    id: Number,
-    title: String,
-    body: String
+  beforeMount () {
+    if (localStorage.getItem('notes')) {
+      try {
+        this.notes = JSON.parse(localStorage.getItem('notes'))
+      } catch (e) {
+        localStorage.removeItem('notes')
+      }
+    }
   },
   mounted () {
-    console.log(this.fetchData())
+    this.fetchData()
   },
   methods: {
     fetchData () {
-      const noteId = this.$props.id - 1
+      const index = this.$props.id
       const note = {}
-      note.title = this.items[noteId].title
-      note.body = this.items[noteId].body
+      note.title = this.notes[index].title
+      note.body = this.notes[index].body
       return note
     }
-  }
+  },
+  props: ['id'],
+  components: {
+    Detail
+  },
+  name: 'NoteDetail'
 }
 </script>

@@ -1,16 +1,29 @@
 <template>
   <ul>
-    <ListItem v-for="item in items" :key="item.id" :id="item.id" :title="item.title" :body="item.body"/>
+    <ListItem v-for="(note, index) in notes" :key="index" :index="index" :title="note.title"/>
   </ul>
 </template>
 
 <script>
 import ListItem from '@/components/ListItem.vue'
 export default {
+  data () {
+    return {
+      notes: []
+    }
+  },
+  mounted () {
+    if (localStorage.getItem('notes')) {
+      try {
+        this.notes = JSON.parse(localStorage.getItem('notes'))
+      } catch (e) {
+        localStorage.removeItem('notes')
+      }
+    }
+  },
   components: {
     ListItem
   },
-  name: 'List',
-  inject: ['items']
+  name: 'List'
 }
 </script>

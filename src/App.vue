@@ -6,32 +6,6 @@
   <router-view/>
 </template>
 
-<script>
-export default {
-  data () {
-    return {
-      items: [
-        {
-          title: 'ゆるキャン',
-          body: 'ｑうぇｒちゅいおお',
-          id: 1
-        },
-        {
-          title: '伊豆キャン',
-          body: 'ああああああああｓｄさｄｆｇｈｊｋｌ',
-          id: 2
-        }
-      ]
-    }
-  },
-  provide () {
-    return {
-      items: this.items
-    }
-  }
-}
-</script>
-
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

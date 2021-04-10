@@ -42,6 +42,7 @@ export default {
       this.notes.push(this.newNote)
       this.newNote = ''
       this.saveNote()
+      this.$router.push({ path: '/' })
     },
     saveNote () {
       const parsed = JSON.stringify(this.notes)

@@ -1,14 +1,14 @@
 <template>
-  <Detail :id="this.$props.id"/>
+  <NoteDetail :id="this.$props.id"/>
 </template>
 
 <script>
-import Detail from '@/components/Detail.vue'
+import NoteDetail from '@/components/NoteDetail.vue'
 export default {
   props: ['id'],
   components: {
-    Detail
+    NoteDetail
   },
-  name: 'NoteDetail'
+  name: 'ViewNoteDetail'
 }
 </script>

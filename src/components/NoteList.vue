@@ -1,11 +1,11 @@
 <template>
   <ul>
-    <ListItem v-for="(note, index) in notes" :key="index" :index="index" :title="note.title"/>
+    <NoteListItem v-for="(note, index) in notes" :key="index" :index="index" :title="note.title"/>
   </ul>
 </template>
 
 <script>
-import ListItem from '@/components/ListItem.vue'
+import NoteListItem from '@/components/NoteListItem.vue'
 export default {
   data () {
     return {
@@ -22,8 +22,8 @@ export default {
     }
   },
   components: {
-    ListItem
+    NoteListItem
   },
-  name: 'List'
+  name: 'NoteList'
 }
 </script>

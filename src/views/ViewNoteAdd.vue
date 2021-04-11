@@ -1,16 +1,16 @@
 <template>
   <section>
     <h1>Add New Note</h1>
-    <Form/>
+    <NoteAddForm/>
   </section>
 </template>
 
 <script>
-import Form from '@/components/Form.vue'
+import NoteAddForm from '@/components/NoteAddForm.vue'
 export default {
   components: {
-    Form
+    NoteAddForm
   },
-  name: 'NoteAdd'
+  name: 'ViewNoteAdd'
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="note-list">
-    <List/>
+    <NoteList/>
   </div>
   <div>
     <router-link to="/add">Add Note</router-link>
@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import List from '@/components/List.vue'
+import NoteList from '@/components/NoteList.vue'
 export default {
   components: {
-    List
+    NoteList
   },
-  name: 'NoteList'
+  name: 'ViewNoteList'
 }
 </script>

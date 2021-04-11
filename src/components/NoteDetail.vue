@@ -58,7 +58,7 @@ export default {
       localStorage.setItem('notes', parsed)
     }
   },
-  name: 'Detail',
+  name: 'NoteDetail',
   props: {
     id: Number,
     title: String,

@@ -50,6 +50,6 @@ export default {
       localStorage.setItem('notes', parsed)
     }
   },
-  name: 'Form'
+  name: 'NoteAddForm'
 }
 </script>

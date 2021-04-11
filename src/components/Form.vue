@@ -21,7 +21,8 @@ export default {
       notes: [],
       newNote: {
         title: null,
-        body: null
+        body: null,
+        edit: false
       }
     }
   },

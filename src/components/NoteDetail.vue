@@ -10,7 +10,10 @@
   <section v-show="this.notes[this.$props.id].edit">
     <input type="text" v-model="this.notes[this.$props.id].title">
     <textarea v-model="this.notes[this.$props.id].body"></textarea>
-    <div><button @click="this.emitNote()">Save</button></div>
+    <div>
+      <button @click="this.cancelEditNote">Cancel</button>
+      <button @click="this.emitNote()">Save</button>
+    </div>
   </section>
 </template>
 
@@ -45,6 +48,9 @@ export default {
       this.notes.splice(this.$props.id, 1)
       this.saveNote()
       this.$router.push({ path: '/' })
+    },
+    cancelEditNote () {
+      this.notes[this.$props.id].edit = false
     },
     enableEditNote () {
       this.notes[this.$props.id].edit = true

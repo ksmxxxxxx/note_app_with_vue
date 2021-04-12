@@ -2,16 +2,16 @@
   <section v-show="!this.notes[this.$props.id].edit">
     <h1>{{ this.fetchData().title }}</h1>
     <p>{{ this.fetchData().body }}</p>
+    <div>
+      <button @click="this.enableEditNote()">Edit</button>
+      <button @click="this.deleteNote()">Delete</button>
+    </div>
   </section>
   <section v-show="this.notes[this.$props.id].edit">
     <input type="text" v-model="this.notes[this.$props.id].title">
     <textarea v-model="this.notes[this.$props.id].body"></textarea>
+    <div><button @click="this.emitNote()">Save</button></div>
   </section>
-  <div><button @click="this.emitNote()">Save</button></div>
-  <div>
-    <button @click="this.enableEditNote()">Edit</button>
-    <button @click="this.deleteNote()">Delete</button>
-  </div>
 </template>
 
 <script>
@@ -50,6 +50,7 @@ export default {
       this.notes[this.$props.id].edit = true
     },
     emitNote () {
+      this.notes[this.$props.id].edit = false
       this.saveNote()
       this.$router.push({ path: '/' })
     },

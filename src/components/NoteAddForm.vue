@@ -8,9 +8,8 @@
       <label for="body">Body</label>
       <textarea id="body" v-model="newNote.body"></textarea>
     </div>
-    <button @click="addNote">Save</button>
-    <p>{{ newNote.title }}</p>
-    <p>{{ newNote.body }}</p>
+    <button @click="cancelAdd">Cancel</button>
+    <button @click="addNote" :disabled="disabled">Save</button>
   </div>
 </template>
 
@@ -23,7 +22,13 @@ export default {
         title: null,
         body: null,
         edit: false
-      }
+      },
+      disabled: true
+    }
+  },
+  watch: {
+    'newNote.title': function () {
+      this.activateSave()
     }
   },
   mounted () {
@@ -36,6 +41,16 @@ export default {
     }
   },
   methods: {
+    activateSave () {
+      if (this.newNote.title) {
+        this.disabled = false
+      } else {
+        this.disabled = true
+      }
+    },
+    cancelAdd () {
+      this.$router.push({ path: '/' })
+    },
     addNote () {
       if (!this.newNote) {
         return

@@ -3,6 +3,7 @@
     <h1>{{ this.fetchData().title }}</h1>
     <p>{{ this.fetchData().body }}</p>
     <div>
+      <button @click="this.$router.push({ path: '/' })">Back to list</button>
       <button @click="this.enableEditNote()">Edit</button>
       <button @click="this.deleteNote()">Delete</button>
     </div>

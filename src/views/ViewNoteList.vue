@@ -1,4 +1,5 @@
 <template>
+  <NoteHeader/>
   <div class="note-list">
     <NoteList/>
   </div>
@@ -8,9 +9,11 @@
 </template>
 
 <script>
+import NoteHeader from '@/components/NoteHeader.vue'
 import NoteList from '@/components/NoteList.vue'
 export default {
   components: {
+    NoteHeader,
     NoteList
   },
   name: 'ViewNoteList'

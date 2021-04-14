@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="bg-indigo-700 p-8 mb-8 text-white text-center">
     <h1>Note App</h1>
   </header>
 </template>

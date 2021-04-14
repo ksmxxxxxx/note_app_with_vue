@@ -1,7 +1,7 @@
 <template>
   <NoteHeader/>
-  <section>
-    <h1>Add New Note</h1>
+  <section class="w-2/3 min-w-min mx-auto">
+    <h1 class="mb-4 text-xl text-center">Add New Note</h1>
     <NoteAddForm/>
   </section>
 </template>

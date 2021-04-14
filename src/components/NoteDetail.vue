@@ -1,19 +1,27 @@
 <template>
   <section v-show="!this.notes[this.$props.id].edit">
-    <h1>{{ this.fetchData().title }}</h1>
-    <p>{{ this.fetchData().body }}</p>
-    <div>
-      <button @click="this.$router.push({ path: '/' })">Back to list</button>
-      <button @click="this.enableEditNote()">Edit</button>
-      <button @click="this.deleteNote()">Delete</button>
+    <div class="w-2/3 min-w-min mx-auto">
+      <div>
+        <h1 class="p-2 border-b border-solid border-gray-300 text-lg">{{ this.fetchData().title }}</h1>
+        <p class="p-2">{{ this.fetchData().body }}</p>
+      </div>
+      <div class="flex justify-center mt-4">
+        <button @click="this.$router.push({ path: '/' })" class="inline-flex px-6 py-3 rounded-full bg-gray-100">Back to list</button>
+        <button @click="this.enableEditNote()" class="inline-flex ml-4 px-6 py-3 rounded-full bg-indigo-700 text-white">Edit</button>
+        <button @click="this.deleteNote()" class="inline-flex ml-4 px-6 py-3 rounded-full bg-red-200 text-red-800">Delete</button>
+      </div>
     </div>
   </section>
   <section v-show="this.notes[this.$props.id].edit">
-    <input type="text" v-model="this.notes[this.$props.id].title">
-    <textarea v-model="this.notes[this.$props.id].body"></textarea>
-    <div>
-      <button @click="this.cancelEditNote">Cancel</button>
-      <button @click="this.emitNote()">Save</button>
+    <div class="w-2/3 min-w-min mx-auto">
+      <div class="flex flex-col">
+        <input type="text" v-model="this.notes[this.$props.id].title" class="mb-2">
+        <textarea v-model="this.notes[this.$props.id].body"></textarea>
+      </div>
+      <div class="flex justify-center mt-4">
+        <button @click="this.cancelEditNote" class="inline-flex px-6 py-3 rounded-full bg-gray-100">Cancel</button>
+        <button @click="this.emitNote()" class="inline-flex ml-4 px-6 py-3 rounded-full ring-4 ring-indigo-300 bg-indigo-700 text-white">Save</button>
+      </div>
     </div>
   </section>
 </template>

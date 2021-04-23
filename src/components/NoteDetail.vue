@@ -2,8 +2,8 @@
   <section v-show="!this.notes[this.$props.id].edit">
     <div class="w-2/3 min-w-min mx-auto">
       <div>
-        <h1 class="p-2 border-b border-solid border-gray-300 text-lg">{{ this.fetchData().title }}</h1>
-        <p class="p-2">{{ this.fetchData().body }}</p>
+        <h1 class="p-2 border-b border-solid border-gray-300 text-lg">{{ fetchData.title }}</h1>
+        <p class="p-2">{{ fetchData.body }}</p>
       </div>
       <div class="flex justify-center mt-4">
         <button @click="this.$router.push({ path: '/' })" class="inline-flex px-6 py-3 rounded-full bg-gray-100">Back to list</button>
@@ -15,12 +15,14 @@
   <section v-show="this.notes[this.$props.id].edit">
     <div class="w-2/3 min-w-min mx-auto">
       <div class="flex flex-col">
+        <input type="text" v-model="test">
+        <p>{{ this.notes[this.$props.id].title }}</p>
         <input type="text" v-model="this.notes[this.$props.id].title" class="mb-2">
-        <textarea v-model="this.notes[this.$props.id].body"></textarea>
+        <textarea v-model="fetchData.body"></textarea>
       </div>
       <div class="flex justify-center mt-4">
         <button @click="this.cancelEditNote" class="inline-flex px-6 py-3 rounded-full bg-gray-100">Cancel</button>
-        <button @click="this.emitNote()" class="inline-flex ml-4 px-6 py-3 rounded-full ring-4 ring-indigo-300 bg-indigo-700 text-white">Save</button>
+        <button @click="this.emitNote()" :disabled="disabled" class="disabled:opacity-80 inline-flex ml-4 px-6 py-3 rounded-full ring-4 ring-indigo-300 bg-indigo-700 text-white">Save</button>
       </div>
     </div>
   </section>
@@ -30,7 +32,9 @@
 export default {
   data () {
     return {
-      notes: []
+      notes: [],
+      test: 'テスト',
+      disabled: false
     }
   },
   beforeMount () {
@@ -42,16 +46,43 @@ export default {
       }
     }
   },
-  mounted () {
-    this.fetchData()
-  },
-  methods: {
+  computed: {
     fetchData () {
       const index = this.$props.id
       const note = {}
       note.title = this.notes[index].title
       note.body = this.notes[index].body
       return note
+    }
+  },
+  watch: {
+    // test () { console.log(this.notes[this.$props.id].title) }
+    // notes: {  ← これはwatchされている
+    //   handler () {
+    //     console.log(this.notes[this.$props.id].title)
+    //   },
+    //   deep: true
+    // }
+    // ↓ これだとwatchされない
+    'notes[this.$props.id].title': function () {
+      console.log(this.notes[this.$props.id].title)
+    }
+  },
+  // ↓これもwatchされない
+  // created () {
+  //   console.log(this.notes.length)
+  //   this.$watch('this.notes[this.$props.id].title', () => {
+  //     console.log('hoge')
+  //   },
+  //   { deep: true })
+  // },
+  methods: {
+    activateSave () {
+      if (this.notes[this.$props.id].title) {
+        this.disabled = false
+      } else {
+        this.disabled = true
+      }
     },
     deleteNote () {
       this.notes.splice(this.$props.id, 1)
@@ -76,9 +107,7 @@ export default {
   },
   name: 'NoteDetail',
   props: {
-    id: Number,
-    title: String,
-    body: String
+    id: Number
   }
 }
 </script>

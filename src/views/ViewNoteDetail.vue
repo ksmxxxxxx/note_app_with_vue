@@ -1,6 +1,6 @@
 <template>
   <NoteHeader/>
-  <NoteDetail :id="this.$props.id"/>
+  <NoteDetail v-bind="$attrs" :id="this.$props.id"/>
 </template>
 
 <script>

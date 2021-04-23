@@ -2,7 +2,7 @@
   <NoteHeader/>
   <section class="w-2/3 min-w-min mx-auto">
     <h1 class="mb-4 text-xl text-center">Add New Note</h1>
-    <NoteAddForm/>
+    <NoteAddForm  v-bind="$attrs"/>
   </section>
 </template>
 

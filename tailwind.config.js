@@ -3,7 +3,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {},
   variants: {
-    extend: {}
+    opacity: ['hover', 'disabled']
   },
   plugins: [
     require('@tailwindcss/forms')

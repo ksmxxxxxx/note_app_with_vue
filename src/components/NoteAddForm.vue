@@ -10,7 +10,7 @@
     </div>
     <div class="flex justify-center mt-4">
       <button @click="cancelAdd" class="inline-flex px-6 py-3 rounded-full bg-gray-100">Cancel</button>
-      <button @click="addNote" :disabled="disabled" class="inline-flex ml-4 px-6 py-3 rounded-full ring-4 ring-indigo-300 bg-indigo-700 text-white">Save</button>
+      <button @click="addNote" :disabled="disabled" class="disabled:opacity-50 inline-flex ml-4 px-6 py-3 rounded-full ring-4 ring-indigo-300 bg-indigo-700 text-white">Save</button>
     </div>
   </div>
 </template>

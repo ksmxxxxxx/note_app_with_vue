@@ -1,9 +1,9 @@
 <template>
-  <section v-show="!this.notes[this.$props.id].edit">
+  <section v-show="!this.edit">
     <div class="w-2/3 min-w-min mx-auto">
       <div>
-        <h1 class="p-2 border-b border-solid border-gray-300 text-lg">{{ fetchData.title }}</h1>
-        <p class="p-2">{{ fetchData.body }}</p>
+        <h1 class="p-2 border-b border-solid border-gray-300 text-lg">{{ title }}</h1>
+        <p class="p-2">{{ body }}</p>
       </div>
       <div class="flex justify-center mt-4">
         <button @click="this.$router.push({ path: '/' })" class="inline-flex px-6 py-3 rounded-full bg-gray-100">Back to list</button>
@@ -12,13 +12,11 @@
       </div>
     </div>
   </section>
-  <section v-show="this.notes[this.$props.id].edit">
+  <section v-show="this.edit">
     <div class="w-2/3 min-w-min mx-auto">
       <div class="flex flex-col">
-        <input type="text" v-model="test">
-        <p>{{ this.notes[this.$props.id].title }}</p>
-        <input type="text" v-model="this.notes[this.$props.id].title" class="mb-2">
-        <textarea v-model="fetchData.body"></textarea>
+        <input type="text" v-model="title" class="mb-2">
+        <textarea v-model="body"></textarea>
       </div>
       <div class="flex justify-center mt-4">
         <button @click="this.cancelEditNote" class="inline-flex px-6 py-3 rounded-full bg-gray-100">Cancel</button>
@@ -33,7 +31,9 @@ export default {
   data () {
     return {
       notes: [],
-      test: 'テスト',
+      title: null,
+      body: null,
+      edit: null,
       disabled: false
     }
   },
@@ -41,62 +41,40 @@ export default {
     if (localStorage.getItem('notes')) {
       try {
         this.notes = JSON.parse(localStorage.getItem('notes'))
+        this.title = this.notes[this.$props.id].title
+        this.body = this.notes[this.$props.id].body
+        this.edit = this.notes[this.$props.id].edit
       } catch (e) {
         localStorage.removeItem('notes')
       }
     }
   },
-  computed: {
-    fetchData () {
-      const index = this.$props.id
-      const note = {}
-      note.title = this.notes[index].title
-      note.body = this.notes[index].body
-      return note
-    }
-  },
   watch: {
-    // test () { console.log(this.notes[this.$props.id].title) }
-    // notes: {  ← これはwatchされている
-    //   handler () {
-    //     console.log(this.notes[this.$props.id].title)
-    //   },
-    //   deep: true
-    // }
-    // ↓ これだとwatchされない
-    'notes[this.$props.id].title': function () {
-      console.log(this.notes[this.$props.id].title)
-    }
-  },
-  // ↓これもwatchされない
-  // created () {
-  //   console.log(this.notes.length)
-  //   this.$watch('this.notes[this.$props.id].title', () => {
-  //     console.log('hoge')
-  //   },
-  //   { deep: true })
-  // },
-  methods: {
-    activateSave () {
-      if (this.notes[this.$props.id].title) {
+    title () {
+      if (this.title) {
         this.disabled = false
       } else {
         this.disabled = true
       }
-    },
+    }
+  },
+  methods: {
     deleteNote () {
-      this.notes.splice(this.$props.id, 1)
+      this.splice(this.$props.id, 1)
       this.saveNote()
       this.$router.push({ path: '/' })
     },
     cancelEditNote () {
-      this.notes[this.$props.id].edit = false
+      this.edit = false
     },
     enableEditNote () {
-      this.notes[this.$props.id].edit = true
+      this.edit = true
     },
     emitNote () {
-      this.notes[this.$props.id].edit = false
+      this.edit = false
+      this.notes[this.$props.id].title = this.title
+      this.notes[this.$props.id].body = this.body
+      this.notes[this.$props.id].edit = this.edit
       this.saveNote()
       this.$router.push({ path: '/' })
     },

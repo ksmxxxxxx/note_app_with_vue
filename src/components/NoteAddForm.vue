@@ -10,7 +10,7 @@
     </div>
     <div class="flex justify-center mt-4">
       <button @click="cancelAdd" class="inline-flex px-6 py-3 rounded-full bg-gray-100">Cancel</button>
-      <button @click="addNote" :disabled="disabled" class="disabled:opacity-80 inline-flex ml-4 px-6 py-3 rounded-full ring-4 ring-indigo-300 bg-indigo-700 text-white">Save</button>
+      <button @click="saveNote" :disabled="disabled" class="disabled:opacity-80 inline-flex ml-4 px-6 py-3 rounded-full ring-4 ring-indigo-300 bg-indigo-700 text-white">Save</button>
     </div>
   </div>
 </template>
@@ -19,8 +19,6 @@
 export default {
   data () {
     return {
-      notes: [],
-      newNote: {},
       title: null,
       body: null,
       edit: false,
@@ -32,15 +30,6 @@ export default {
       this.activateSave()
     }
   },
-  mounted () {
-    if (localStorage.getItem('notes')) {
-      try {
-        this.notes = JSON.parse(localStorage.getItem('notes'))
-      } catch (e) {
-        localStorage.removeItem('notes')
-      }
-    }
-  },
   methods: {
     activateSave () {
       if (this.title) {
@@ -49,24 +38,31 @@ export default {
         this.disabled = true
       }
     },
+    loadStorage () {
+      let storage = []
+      if (localStorage.getItem('notes')) {
+        try {
+          storage = JSON.parse(localStorage.getItem('notes'))
+        } catch (e) {
+          localStorage.removeItem('notes')
+        }
+      }
+      return storage
+    },
     cancelAdd () {
       this.$router.push({ path: '/' })
     },
-    addNote () {
-      if (!this.title) {
-        return
-      }
-      this.newNote.title = this.title
-      this.newNote.body = this.body
-      this.newNote.edit = this.edit
-      this.notes.push(this.newNote)
-      this.saveNote()
-      this.newNote = ''
-      this.$router.push({ path: '/' })
-    },
     saveNote () {
-      const parsed = JSON.stringify(this.notes)
+      if (!this.title) return
+      const notes = this.loadStorage()
+      const newNote = {}
+      newNote.title = this.title
+      newNote.body = this.body
+      newNote.edit = this.edit
+      notes.push(newNote)
+      const parsed = JSON.stringify(notes)
       localStorage.setItem('notes', parsed)
+      this.$router.push({ path: '/' })
     }
   },
   name: 'NoteAddForm'

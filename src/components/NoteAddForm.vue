@@ -9,8 +9,8 @@
       <textarea id="body" v-model="body" class="flex-grow"></textarea>
     </div>
     <div class="flex justify-center mt-4">
-      <button @click="cancelAdd" class="inline-flex px-6 py-3 rounded-full bg-gray-100">Cancel</button>
-      <button @click="saveNote" :disabled="disabled" class="disabled:opacity-80 inline-flex ml-4 px-6 py-3 rounded-full ring-4 ring-indigo-300 bg-indigo-700 text-white">Save</button>
+      <button @click="cancel" class="inline-flex px-6 py-3 rounded-full bg-gray-100">Cancel</button>
+      <button @click="save" :disabled="disabled" class="disabled:opacity-80 inline-flex ml-4 px-6 py-3 rounded-full ring-4 ring-indigo-300 bg-indigo-700 text-white">Save</button>
     </div>
   </div>
 </template>
@@ -46,10 +46,10 @@ export default {
       }
       return storage
     },
-    cancelAdd () {
+    cancel () {
       this.$router.push({ path: '/' })
     },
-    saveNote () {
+    save () {
       if (!this.title) return
       const notes = this.loadStorage()
       const newNote = {}

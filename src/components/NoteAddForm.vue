@@ -27,17 +27,14 @@ export default {
   },
   watch: {
     title () {
-      this.activateSave()
-    }
-  },
-  methods: {
-    activateSave () {
       if (this.title) {
         this.disabled = false
       } else {
         this.disabled = true
       }
-    },
+    }
+  },
+  methods: {
     loadStorage () {
       let storage = []
       if (localStorage.getItem('notes')) {

@@ -7,8 +7,8 @@
       </div>
       <div class="flex justify-center mt-4">
         <button @click="this.$router.push({ path: '/' })" class="inline-flex px-6 py-3 rounded-full bg-gray-100">Back to list</button>
-        <button @click="this.enableEditNote()" class="inline-flex ml-4 px-6 py-3 rounded-full bg-indigo-700 text-white">Edit</button>
-        <button @click="this.deleteNote()" class="inline-flex ml-4 px-6 py-3 rounded-full bg-red-200 text-red-800">Delete</button>
+        <button @click="enableEdit" class="inline-flex ml-4 px-6 py-3 rounded-full bg-indigo-700 text-white">Edit</button>
+        <button @click="remove" class="inline-flex ml-4 px-6 py-3 rounded-full bg-red-200 text-red-800">Delete</button>
       </div>
     </div>
   </section>
@@ -19,8 +19,8 @@
         <textarea v-model="body"></textarea>
       </div>
       <div class="flex justify-center mt-4">
-        <button @click="this.cancelEditNote" class="inline-flex px-6 py-3 rounded-full bg-gray-100">Cancel</button>
-        <button @click="this.emitNote()" :disabled="disabled" class="disabled:opacity-80 inline-flex ml-4 px-6 py-3 rounded-full ring-4 ring-indigo-300 bg-indigo-700 text-white">Save</button>
+        <button @click="cancel" class="inline-flex px-6 py-3 rounded-full bg-gray-100">Cancel</button>
+        <button @click="save" :disabled="disabled" class="disabled:opacity-80 inline-flex ml-4 px-6 py-3 rounded-full ring-4 ring-indigo-300 bg-indigo-700 text-white">Save</button>
       </div>
     </div>
   </section>
@@ -30,7 +30,6 @@
 export default {
   data () {
     return {
-      notes: [],
       title: null,
       body: null,
       edit: null,
@@ -40,10 +39,11 @@ export default {
   beforeMount () {
     if (localStorage.getItem('notes')) {
       try {
-        this.notes = JSON.parse(localStorage.getItem('notes'))
-        this.title = this.notes[this.$props.id].title
-        this.body = this.notes[this.$props.id].body
-        this.edit = this.notes[this.$props.id].edit
+        let notes = []
+        notes = JSON.parse(localStorage.getItem('notes'))
+        this.title = notes[this.$props.id].title
+        this.body = notes[this.$props.id].body
+        this.edit = notes[this.$props.id].edit
       } catch (e) {
         localStorage.removeItem('notes')
       }
@@ -59,28 +59,38 @@ export default {
     }
   },
   methods: {
-    deleteNote () {
+    loadStorage () {
+      let storage = []
+      if (localStorage.getItem('notes')) {
+        try {
+          storage = JSON.parse(localStorage.getItem('notes'))
+        } catch (e) {
+          localStorage.removeItem('notes')
+        }
+      }
+      return storage
+    },
+    remove () {
       this.splice(this.$props.id, 1)
       this.saveNote()
       this.$router.push({ path: '/' })
     },
-    cancelEditNote () {
+    cancel () {
       this.edit = false
     },
-    enableEditNote () {
+    enableEdit () {
       this.edit = true
     },
-    emitNote () {
+    save () {
+      if (!this.title) return
+      const notes = this.loadStorage()
       this.edit = false
-      this.notes[this.$props.id].title = this.title
-      this.notes[this.$props.id].body = this.body
-      this.notes[this.$props.id].edit = this.edit
-      this.saveNote()
-      this.$router.push({ path: '/' })
-    },
-    saveNote () {
-      const parsed = JSON.stringify(this.notes)
+      notes[this.$props.id].title = this.title
+      notes[this.$props.id].body = this.body
+      notes[this.$props.id].edit = this.edit
+      const parsed = JSON.stringify(notes)
       localStorage.setItem('notes', parsed)
+      this.$router.push({ path: '/' })
     }
   },
   name: 'NoteDetail',

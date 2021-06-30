@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="mb-8">
     <NoteListItem v-for="(note, index) in notes" :key="index" :index="index" :title="note.title"/>
   </ul>
 </template>

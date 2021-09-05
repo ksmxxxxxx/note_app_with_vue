@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: Noto Sans, sans-serif;
+    @apply text-gray-700;
+  }
+  a {
+    @apply text-indigo-600;
+  }
+}
